@@ -82,7 +82,7 @@ lav_t_check <- function(object, verbose = FALSE) {
   # 1a. check for negative variances ov
   var.idx <- which(lavpartable$op == "~~" &
                      lavpartable$lhs %in% lavNames(object, "ov") &
-                     lavpartable$lhs == lavpartable$rhs)
+                     lavpartablelhs==lavpartablelhs == lavpartablerhs)
   if(length(var.idx) > 0L && any(lavpartable$est[var.idx] < 0.0)) {
     result.ok <- var.ov.ok <- FALSE
     #warning("lavaan WARNING: some estimated ov variances are negative")
@@ -91,7 +91,7 @@ lav_t_check <- function(object, verbose = FALSE) {
   # 1b. check for negative variances lv
   var.idx <- which(lavpartable$op == "~~" &
                      lavpartable$lhs %in% lavNames(object, "lv") &
-                     lavpartable$lhs == lavpartable$rhs)
+                     lavpartablelhs==lavpartablelhs == lavpartablerhs)
   if(length(var.idx) > 0L && any(lavpartable$est[var.idx] < 0.0)) {
     result.ok <- var.lv.ok <- FALSE
     #warning("lavaan WARNING: some estimated lv variances are negative")
@@ -158,7 +158,7 @@ Test.all<-function(N,m,R) {
         #c_p1<-ncol(data)/(nrow(data)-1)  ##c=p/(n-1)
         mu<-ncol(data)-ncol(data)*(1-1/c_p)*log(1-c_p)-0.5*log(1-c_p)
         #mu_c<-ncol(data)-ncol(data)*(1-1/c_p)*log(1-c_p)-0.5*log(1-c_p)+0.5*c_p*(beta)   # 
-        #mu_c1<-ncol(data)-ncol(data)*(1-1/c_p)*log(1-c_p)+c_p*(0.5*beta-1)-1.5*log(1-c_p) # 非正态总体
+        #mu_c1<-ncol(data)-ncol(data)*(1-1/c_p)*log(1-c_p)+c_p*(0.5*beta-1)-1.5*log(1-c_p) # 
         sd_c<-sqrt(-2*log(1-c_p)-2*c_p)
         
         mu_y0<-2.015910*(m/ncol(data))+1.291412*(ncol(data)/nrow(data))-0.278377*m+0.036066*ncol(data)-2.393643
@@ -174,13 +174,13 @@ Test.all<-function(N,m,R) {
         a1[i]<-T1<-c_b*chi.sc
         a2[i]<-T2<-c_b*chi
         
-        a3[i]<-T3<-(fml-mu)/sd_c   #  功率比其它三个高
-        a4[i]<-T4<-(fml-mu-mu_y0*sd_c)/sd_c    ### 正态修正
-        a5[i]<-T5<-(fml_r-mu-mu_y0*sd_c)/sd_c   ### 岭回归修正 保持稳定性       
+        a3[i]<-T3<-(fml-mu)/sd_c   #  
+        a4[i]<-T4<-(fml-mu-mu_y0*sd_c)/sd_c    ### 
+        a5[i]<-T5<-(fml_r-mu-mu_y0*sd_c)/sd_c   ###       
         
-        a6[i]<-T6<-(chi.sc/nrow(data)-mu)/sd_c ##  缩放纠正
-        a7[i]<-T7<-(chi.sc/nrow(data)-mu-mu_y1*sd_c)/sd_c ##  岭回归缩放纠正
-        a8[i]<-T8<-(chi.sc1/nrow(data)-mu-mu_y1*sd_c)/sd_c ##  岭回归缩放纠正    
+        a6[i]<-T6<-(chi.sc/nrow(data)-mu)/sd_c ##  
+        a7[i]<-T7<-(chi.sc/nrow(data)-mu-mu_y1*sd_c)/sd_c ##  
+        a8[i]<-T8<-(chi.sc1/nrow(data)-mu-mu_y1*sd_c)/sd_c ##   
         
         
         if((1-pchisq(T1,df))<=0.05){n1<-n1+1}
