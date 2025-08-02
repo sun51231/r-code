@@ -134,7 +134,7 @@ Test.all<-function(N,m,R) {
   for (i in 1:n) {
     data<-generate(population.model,n=N,facDist = facdist,errorDist = errordist)
     fit<-cfa(my.model,data =data,estimator="MLM")
-    fit1<-cfa(my.model,data =data,ridge = TRUE, ridge.constant = 1e-3,estimator="MLM")  ##   ridge
+    fit1<-cfa(my.model,data =data,ridge = TRUE, ridge.constant = 1e-3,estimator="MLM")  ##   ridge 
     # 
     
     if(fit@optim$converged){
